@@ -1,0 +1,132 @@
+
+.temp.file.elf:     file format elf32-littleriscv
+
+SYMBOL TABLE:
+00000000 l    d  .init	00000000 .init
+00000054 l    d  .text	00000000 .text
+02000000 l    d  .data	00000000 .data
+02000000 l    d  .bss	00000000 .bss
+02000000 l    d  .stack	00000000 .stack
+00000000 l    d  .riscv.attributes	00000000 .riscv.attributes
+00000000 l    d  .comment	00000000 .comment
+00000000 l    d  .debug_aranges	00000000 .debug_aranges
+00000000 l    d  .debug_info	00000000 .debug_info
+00000000 l    d  .debug_abbrev	00000000 .debug_abbrev
+00000000 l    d  .debug_line	00000000 .debug_line
+00000000 l    d  .debug_str	00000000 .debug_str
+00000000 l    d  .debug_ranges	00000000 .debug_ranges
+00000000 l    d  .debug_frame	00000000 .debug_frame
+00000000 l    d  .debug_macro	00000000 .debug_macro
+00000000 l    df *ABS*	00000000 tls.c
+00000000 l    df *ABS*	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+0000005b l       .debug_info	00000000 
+00000000 g       *ABS*	00000000 __data_size
+02000800 g       .data	00000000 __global_pointer$
+02000000 g       .bss	00000000 __tls_base
+00000800 g       *ABS*	00000000 __flash_size
+00000040 g       *ABS*	00000000 __stack_size
+00000000 g       *ABS*	00000000 __bss_size
+00000070 g     F .text	00000024 memcpy
+02000000 g       .bss	00000000 __bss_end
+00000000 g       *ABS*	00000000 __tbss_size
+00000068 g     F .text	00000008 _set_tls
+00000000 g     F .init	00000000 _start
+02000000 g       *ABS*	00000000 __ram
+02000000 g       .bss	00000000 __data_end
+000000b0 g       .text	00000000 __text_end
+02000000 g       .bss	00000000 __bss_start
+00000094 g     F .text	0000001c memset
+00000054 g     F .text	00000014 main
+00000100 g       *ABS*	00000000 __ram_size
+0000005b  w      .debug_info	00000000 .hidden pwm.c.6adc02d2
+02000100 g       .init	00000000 __stack
+00000000 g     F *ABS*	00000000 vfscanf
+000000b0 g       *ABS*	00000000 __data_source
+00000000 g       *ABS*	00000000 __flash
+02000000 g       .data	00000000 __data_start
+00000000 g     F *ABS*	00000000 vfprintf
+
+
+
+Disassembly of section .init:
+
+00000000 <_start>:
+   0:	    02000117          	auipc	x2,0x2000
+   4:	    10010113          	addi	x2,x2,256 # 2000100 <__stack>
+   8:	    02000197          	auipc	x3,0x2000
+   c:	    7f818193          	addi	x3,x3,2040 # 2000800 <__global_pointer$>
+  10:	    02000517          	auipc	x10,0x2000
+  14:	    ff050513          	addi	x10,x10,-16 # 2000000 <__bss_end>
+  18:	    0b000593          	addi	x11,x0,176
+  1c:	    00000613          	addi	x12,x0,0
+  20:	    050000ef          	jal	x1,70 <memcpy>
+  24:	    02000517          	auipc	x10,0x2000
+  28:	    fdc50513          	addi	x10,x10,-36 # 2000000 <__bss_end>
+  2c:	    00000593          	addi	x11,x0,0
+  30:	    00000613          	addi	x12,x0,0
+  34:	    060000ef          	jal	x1,94 <memset>
+  38:	    02000517          	auipc	x10,0x2000
+  3c:	    fc850513          	addi	x10,x10,-56 # 2000000 <__bss_end>
+  40:	    028000ef          	jal	x1,68 <_set_tls>
+  44:	    00000513          	addi	x10,x0,0
+  48:	    00000593          	addi	x11,x0,0
+  4c:	    008000ef          	jal	x1,54 <main>
+  50:	/-- 0000006f          	jal	x0,50 <__stack_size+0x10>
+
+Disassembly of section .text:
+
+00000054 <main>:
+     ### // Define the pointer to the memory location
+     ### #define PTR_TO_MEM_LOC ((volatile unsigned int *)MEM_LOC)
+     ### 
+     ### int main() {
+     ###     // Use the defined pointer to assign the value 1 to the memory location
+     ###     *PTR_TO_MEM_LOC = 1;
+  54:	020017b7          	lui	x15,0x2001
+  58:	00100713          	addi	x14,x0,1
+  5c:	00e7a023          	sw	x14,0(x15) # 2001000 <__global_pointer$+0x800>
+     ###     return 0;
+     ### }
+  60:	00000513          	addi	x10,x0,0
+  64:	00008067          	jalr	x0,0(x1)
+
+00000068 <_set_tls>:
+  68:	00050213          	addi	x4,x10,0
+  6c:	00008067          	jalr	x0,0(x1)
+
+00000070 <memcpy>:
+  70:	       00050313          	addi	x6,x10,0
+  74:	/----- 00060e63          	beq	x12,x0,90 <memcpy+0x20>
+  78:	|  /-> 00058383          	lb	x7,0(x11)
+  7c:	|  |   00730023          	sb	x7,0(x6)
+  80:	|  |   fff60613          	addi	x12,x12,-1
+  84:	|  |   00130313          	addi	x6,x6,1
+  88:	|  |   00158593          	addi	x11,x11,1
+  8c:	|  \-- fe0616e3          	bne	x12,x0,78 <memcpy+0x8>
+  90:	\----> 00008067          	jalr	x0,0(x1)
+
+00000094 <memset>:
+  94:	       00050313          	addi	x6,x10,0
+  98:	/----- 00060a63          	beq	x12,x0,ac <memset+0x18>
+  9c:	|  /-> 00b30023          	sb	x11,0(x6)
+  a0:	|  |   fff60613          	addi	x12,x12,-1
+  a4:	|  |   00130313          	addi	x6,x6,1
+  a8:	|  \-- fe061ae3          	bne	x12,x0,9c <memset+0x8>
+  ac:	\----> 00008067          	jalr	x0,0(x1)
